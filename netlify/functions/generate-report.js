@@ -12,14 +12,28 @@
 const fs = require("fs");
 const path = require("path");
 
+// File locations differ between local development (real repo folder
+// structure) and Netlify's deployed function bundle (flattened, with
+// included_files placed alongside the function at the same root). Try the
+// Netlify-deployed layout first, then fall back to the local-dev layout.
+function readFirstExisting(candidates) {
+  for (const p of candidates) {
+    if (fs.existsSync(p)) return fs.readFileSync(p, "utf8");
+  }
+  throw new Error(`None of these paths exist: ${candidates.join(", ")}`);
+}
+
 const SUBSEASON_DATA = JSON.parse(
-  fs.readFileSync(path.join(__dirname, "../../data/subseason-full-data.json"), "utf8")
+  readFirstExisting([
+    path.join(__dirname, "data", "subseason-full-data.json"),       // Netlify deployed layout
+    path.join(__dirname, "..", "..", "data", "subseason-full-data.json"), // local dev layout
+  ])
 );
 
-const TEMPLATE_HTML = fs.readFileSync(
-  path.join(__dirname, "../../templates/report-template.html"),
-  "utf8"
-);
+const TEMPLATE_HTML = readFirstExisting([
+  path.join(__dirname, "templates", "report-template.html"),         // Netlify deployed layout
+  path.join(__dirname, "..", "..", "templates", "report-template.html"), // local dev layout
+]);
 
 // ---- Tally field label -> internal key map ----
 // Edit the left-hand strings below to match your actual Tally question
