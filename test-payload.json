@@ -1,0 +1,16 @@
+{
+  "data": {
+    "fields": [
+      {"label": "Client Name", "value": "Ani Berckemeyer"},
+      {"label": "Subseason", "type": "DROPDOWN", "value": ["x1"], "options": [{"id": "x1", "text": "Deep Winter"}]},
+      {"label": "Report Date", "value": "June 2026"},
+      {"label": "Overview Summary", "value": "Hair: deep cool brown. Temperature Low, Value Low, Chroma Medium.\n\nEyes: dark brown with cool undertone. Low/Low/Medium.\n\nSkin: cool porcelain with high contrast. Low/Low/Medium.\n\nIn short, your best colors are deep before bright, cool before warm, and rich before muted—the signature combination that defines a true Deep Winter."},
+      {"label": "Overview Picture", "value": [{"url": "https://example.com/overview-burgundy.jpg"}]},
+      {"label": "Gold and Silver Test", "value": "By comparison, yellow gold introduces noticeable warmth. While you can wear white gold, platinum, sterling silver, and cool-toned gemstones effortlessly, if you choose gold, opt for cooler finishes."},
+      {"label": "Cover Photo", "value": [{"url": "https://example.com/cover-neutral.jpg"}]},
+      {"label": "Gold and Silver Test Photo", "value": [{"url": "https://example.com/metal-test.jpg"}]},
+      {"label": "Best 10 Colors", "value": [{"url": "https://example.com/best-collage.jpg"}]},
+      {"label": "Your 10 Not-Your-Colors", "value": [{"url": "https://example.com/worst-collage.jpg"}]}
+    ]
+  }
+}
