@@ -106,25 +106,52 @@ function normalizeLabel(label) {
   return (label || "").toString().trim().toLowerCase();
 }
 
-// Tally file-upload fields arrive as an array of {url, name, ...} objects.
-// Text fields arrive as plain strings (or sometimes wrapped). This pulls
-// out a usable value from either shape.
+// Tally sends different field "type"s with different value shapes:
+//   - INPUT_TEXT: value is a plain string
+//   - DROPDOWN: value is an array containing an option ID (NOT the text!) —
+//     the human-readable text lives in a sibling "options" array, e.g.
+//     value: ["1d1e8fc9-..."], options: [{id:"1d1e8fc9-...", text:"Soft Autumn"}, ...]
+//     so dropdown answers must be resolved through that options list.
+//   - FILE_UPLOAD: value is an array of {id, name, url, mimeType, size}
+// This function returns the right human-readable value for any of the above.
 function extractValue(field) {
   const v = field.value;
-  if (Array.isArray(v)) {
-    // file upload field
-    if (v.length === 0) return null;
-    const first = v[0];
-    if (typeof first === "string") return first;
-    if (first && typeof first === "object") return first.url || first.name || null;
-    return null;
+
+  if (!Array.isArray(v)) {
+    return v == null ? "" : String(v);
   }
-  return v == null ? "" : String(v);
+  if (v.length === 0) return null;
+
+  const first = v[0];
+
+  // Dropdown: v[0] is an option ID string: look it up against field.options
+  if (typeof first === "string" && Array.isArray(field.options)) {
+    const match = field.options.find((opt) => opt.id === first);
+    if (match) return match.text;
+    return first; // fallback: couldn't resolve, return the raw id
+  }
+
+  // File upload: v[0] is an object with a url
+  if (first && typeof first === "object") {
+    return first.url || first.name || null;
+  }
+
+  // Plain string array with no options (shouldn't normally happen)
+  return first;
 }
 
 function parseTallyPayload(body) {
-  // Tally webhook shape: { data: { fields: [ { label, value, ... }, ... ] } }
-  const fields = (body && body.data && body.data.fields) || [];
+  // Accept either shape:
+  //   - Tally's native webhook: { data: { fields: [...] } }
+  //   - Fields forwarded directly at the root (e.g. via some Make/Zapier
+  //     passthrough configurations): { fields: [...] }  or even the fields
+  //     array itself if someone maps just that.
+  const fields =
+    (body && body.data && body.data.fields) ||
+    (body && body.fields) ||
+    (Array.isArray(body) ? body : []) ||
+    [];
+
   const out = {};
   for (const field of fields) {
     const key = FIELD_LABELS[normalizeLabel(field.label)];
