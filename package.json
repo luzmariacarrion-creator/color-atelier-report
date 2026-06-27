@@ -1,9 +1,0 @@
-{
-  "name": "color-atelier-report-generator",
-  "version": "1.0.0",
-  "description": "Netlify function that generates Color Atelier client reports from Tally form submissions",
-  "scripts": {},
-  "dependencies": {
-    "cheerio": "^1.0.0"
-  }
-}
