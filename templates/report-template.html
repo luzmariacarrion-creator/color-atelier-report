@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Color Atelier — Client Report Template</title>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Caveat:wght@500;600&display=swap');
+
+:root{
+  --paper:#F4F1EA;
+  --ink:#2B2823;
+  --ink-soft:#5C5750;
+  --line:#C9C2B4;
+  --line-soft:#DDD7C9;
+  --accent-rust:#B5572E;
+  --accent-sage:#6E7A5E;
+  --accent-gold:#A8843A;
+  --swatch-border:rgba(0,0,0,0.08);
+}
+
+*{ box-sizing:border-box; }
+
+html,body{
+  margin:0;
+  padding:0;
+  background:#1c1a17;
+  font-family:'EB Garamond', serif;
+  color:var(--ink);
+}
+
+/* ============ SCREEN PREVIEW CHROME (hidden when printing) ============ */
+.editor-note{
+  max-width:210mm;
+  margin:24px auto 0;
+  padding:14px 20px;
+  background:#FFF8E6;
+  border:1px solid #E8D9A8;
+  border-radius:4px;
+  font-family:'EB Garamond', serif;
+  font-size:13.5px;
+  line-height:1.6;
+  color:#5C4A1E;
+}
+.editor-note strong{ color:#3D3010; }
+.editor-note code{
+  background:rgba(0,0,0,0.06);
+  padding:1px 5px;
+  border-radius:3px;
+  font-family:monospace;
+  font-size:12px;
+}
+
+.page-strip-label{
+  max-width:210mm;
+  margin:30px auto 6px;
+  font-family:'EB Garamond', serif;
+  font-size:11px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:#9a9488;
+  padding-left:4px;
+}
+
+/* ============ PAGE ============ */
+
+.page{
+  width:210mm;
+  height:297mm;
+  margin:0 auto 28px;
+  background:var(--paper);
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 10px 40px rgba(0,0,0,0.45);
+  padding:14mm 13mm 12mm;
+}
+
+.page-number{
+  position:absolute;
+  top:10mm;
+  right:13mm;
+  font-family:'EB Garamond', serif;
+  font-size:13px;
+  color:var(--ink-soft);
+}
+
+.signature{
+  position:absolute;
+  bottom:9mm;
+  font-family:'Caveat', cursive;
+  font-size:22px;
+  color:var(--accent-rust);
+  opacity:0.85;
+}
+.signature.center{ left:50%; transform:translateX(-50%); }
+.signature.right{ right:13mm; }
+.signature.left{ left:13mm; }
+
+/* Editable placeholder styling — visible cue, prints invisibly as normal text */
+.fillable{
+  background:rgba(181,87,46,0.07);
+  outline:1px dashed rgba(181,87,46,0.35);
+  outline-offset:2px;
+  border-radius:2px;
+}
+.photo-slot{
+  background:repeating-linear-gradient(45deg, #e8e2d3, #e8e2d3 10px, #ded7c5 10px, #ded7c5 20px);
+  border:1px dashed #B5A88A;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:#8a8068;
+  font-family:'EB Garamond', serif;
+  font-size:11px;
+  line-height:1.5;
+  letter-spacing:0.02em;
+}
+.photo-slot span{ padding:0 10px; }
+
+@media print{
+  .editor-note, .page-strip-label{ display:none; }
+  body{ background:#fff; }
+  .page{
+    margin:0;
+    box-shadow:none;
+    page-break-after:always;
+  }
+  .fillable{ background:none; outline:none; }
+  .photo-slot{ border:1px solid #ccc; }
+}
+
+@page{
+  size: A4;
+  margin: 0;
+}
+
+/* ============ TYPE SYSTEM ============ */
+
+.display{
+  font-family:'Cormorant Garamond', serif;
+  font-weight:500;
+  letter-spacing:0.02em;
+}
+.eyebrow{
+  font-family:'EB Garamond', serif;
+  font-size:11px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.label-sm{
+  font-family:'EB Garamond', serif;
+  font-size:10px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+}
+
+/* ============ PAGE 1 : COVER ============ */
+
+.p1-title{
+  font-family:'Cormorant Garamond', serif;
+  font-size:46px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  margin:0 0 40px;
+}
+.p1-client{
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-weight:500;
+  font-size:30px;
+  margin:0 0 6px;
+}
+.p1-season{
+  font-family:'EB Garamond', serif;
+  font-size:13px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--accent-rust);
+  margin:0 0 8px;
+}
+.p1-date{
+  font-family:'EB Garamond', serif;
+  font-style:italic;
+  font-size:12.5px;
+  letter-spacing:0.04em;
+  color:var(--ink-soft);
+  margin:0 0 50px;
+}
+.p1-photo{
+  width:100%;
+  height:170mm;
+  border-radius:2px;
+}
+
+/* ============ PAGE 2 : FEATURE ANALYSIS ============ */
+
+.p2-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  border-bottom:1px solid var(--line);
+  padding-bottom:10px;
+  margin-bottom:24px;
+}
+.p2-title{ font-family:'Cormorant Garamond',serif; font-size:21px; font-weight:600; }
+.feature-table-head{
+  display:grid;
+  grid-template-columns:80px 64px 1fr 180px;
+  font-size:9.5px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  border-bottom:1px solid var(--line);
+  padding-bottom:8px;
+  margin-bottom:4px;
+}
+.feature-row{
+  display:grid;
+  grid-template-columns:80px 64px 1fr 180px;
+  align-items:center;
+  border-bottom:1px solid var(--line-soft);
+  padding:13px 0;
+  gap:8px;
+}
+.feature-row .fname{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:13.5px; }
+.feature-photo{
+  width:60px; height:60px;
+  border-radius:3px;
+}
+.feature-desc{ font-size:13px; line-height:1.5; color:var(--ink); }
+
+.driver-badges{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+.driver-badge-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.driver-badge-label{
+  font-size:9px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  width:70px;
+}
+.driver-badge-value{
+  font-family:'Cormorant Garamond', serif;
+  font-weight:600;
+  font-size:11.5px;
+  letter-spacing:0.04em;
+  padding:2px 10px;
+  border-radius:10px;
+  text-align:center;
+  min-width:58px;
+}
+.driver-badge-value.high{ background:rgba(165,30,30,0.12); color:#8C3B2B; }
+.driver-badge-value.medium{ background:rgba(168,132,58,0.14); color:#8A6A1E; }
+.driver-badge-value.low{ background:rgba(110,122,94,0.14); color:#54603F; }
+
+.overview-box{
+  margin-top:18px;
+  border:1px solid var(--line);
+  padding:14px 18px;
+  font-size:13px;
+}
+.overview-box b{ font-family:'EB Garamond',serif; letter-spacing:0.05em; text-transform:uppercase; font-size:11px; }
+
+/* ============ PAGE 3 : GOLD VS SILVER ============ */
+
+.p3-title{ text-align:center; font-family:'Cormorant Garamond',serif; font-size:21px; font-weight:600; margin-bottom:30px;}
+.metal-row{ display:flex; gap:16px; justify-content:center; margin-bottom:22px; }
+.metal-card{ width:46%; text-align:center; }
+.metal-label{ font-size:12px; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:10px; color:var(--ink-soft); }
+.metal-photo{ width:100%; height:140mm; margin-bottom:14px; }
+.metal-copy{ font-size:12.5px; line-height:1.55; padding:0 6px; }
+.result-box{
+  margin:8px auto 0;
+  max-width:140mm;
+  border:1px solid var(--accent-gold);
+  padding:14px 20px;
+  text-align:center;
+}
+.result-box .rt{ font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent-gold); margin-bottom:6px; }
+.result-box .rd{ font-size:13px; }
+
+/* ============ PAGE 4 : SEASON + PALETTE ============ */
+
+.p4-grid{ display:grid; grid-template-columns:1fr 1fr; gap:30px; }
+.p4-title{ font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:600; margin-bottom:4px; }
+.p4-traits{ font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent-rust); margin-bottom:18px; }
+.p4-copy{ font-size:12.5px; line-height:1.6; margin-bottom:18px; }
+.palette-title{ text-align:center; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:10px; }
+.swatch-grid{ display:grid; grid-template-columns:repeat(6,1fr); gap:6px; margin-bottom:20px; }
+.swatch{ aspect-ratio:1; min-height:34px; border-radius:2px; border:1px solid var(--swatch-border); }
+.sister-title{ font-size:10px; letter-spacing:0.1em; text-transform:uppercase; text-align:center; margin-bottom:8px; color:var(--ink-soft); }
+.sister-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:18px; }
+.sister-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:5px; }
+
+/* ============ PAGE 5 & 6 : COLOR TRY-ON GRID ============ */
+
+.p56-title{ text-align:center; margin-bottom:4px; }
+.p56-title .display{ font-size:21px; font-weight:600; }
+.p56-sub{ text-align:center; font-size:11.5px; color:var(--ink-soft); margin-bottom:22px; }
+.tryon-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+.tryon-card{ text-align:center; }
+.tryon-photo{ width:100%; height:62mm; margin-bottom:8px; }
+.tryon-label{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:12.5px; }
+.tryon-row-gap{ height:14px; }
+.p56-footer{ text-align:center; font-size:12px; font-style:italic; color:var(--ink-soft); margin-top:24px; line-height:1.6; }
+
+/* ============ PAGE 7 : HAIR GUIDE ============ */
+
+.p7-title{ text-align:center; font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; margin-bottom:24px; }
+.p7-grid{ display:grid; grid-template-columns:120px 1fr 1fr 1fr 150px; grid-template-rows:auto 1fr; gap:6px 14px; }
+.faceshape-box{ grid-row:1 / 3; border:1px solid var(--line); padding:12px 10px; text-align:center; }
+.faceshape-box .label-sm{ margin-bottom:10px; display:block; }
+.faceshape-svg{ width:60px; height:80px; margin:0 auto 12px; }
+.faceshape-list{ font-size:10.5px; line-height:1.7; text-align:left; padding-left:14px; margin:0; color:var(--ink-soft); }
+.hair-card{ }
+.hair-photo{ width:100%; height:80mm; border-radius:2px; margin-bottom:10px; }
+.hair-num{ font-size:10px; letter-spacing:0.1em; color:var(--accent-rust); text-transform:uppercase; }
+.hair-title{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:13px; margin-bottom:8px; }
+.hair-detail{ font-size:10.5px; line-height:1.55; }
+.hair-detail b{ font-family:'EB Garamond', serif; }
+.guidelines-box{ grid-row:1 / 3; border:1px solid var(--line); padding:14px 14px; }
+.guidelines-box ul{ margin:0; padding-left:14px; font-size:10.5px; line-height:1.65; }
+
+.p7-section-label{
+  text-align:center;
+  font-size:10px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--accent-rust);
+  grid-column:2 / 5;
+  margin-bottom:-2px;
+}
+.context-box{
+  background:rgba(0,0,0,0.018);
+}
+
+/* ============ REFERENCE PAGES : 12 SEASONS ============ */
+
+.ref-intro{
+  text-align:center;
+  margin-bottom:26px;
+}
+.ref-intro .display{ font-size:23px; font-weight:600; margin-bottom:6px; }
+.ref-intro .eyebrow{ margin-bottom:10px; }
+.ref-group-label{
+  font-size:11px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--accent-rust);
+  text-align:center;
+  margin-bottom:2px;
+}
+
+.season-block{
+  border:1px solid var(--line);
+  padding:16px 18px 18px;
+  margin-bottom:16px;
+}
+.season-block-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  border-bottom:1px solid var(--line-soft);
+  padding-bottom:8px;
+  margin-bottom:12px;
+}
+.season-block-name{
+  font-family:'Cormorant Garamond', serif;
+  font-weight:600;
+  font-size:17px;
+}
+.season-block-tag{
+  font-size:10px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+}
+
+.colorlist-label{
+  font-size:9px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  margin-bottom:6px;
+}
+.colorlist-label.best{ color:var(--accent-sage); }
+.colorlist-label.worst{ color:var(--accent-rust); }
+
+.swatch10-row{
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:4px;
+  margin-bottom:12px;
+}
+.swatch10{
+  aspect-ratio:1;
+  border-radius:2px;
+  border:1px solid var(--swatch-border);
+}
+
+.driver-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:4px;
+}
+.driver{
+  border-top:1px solid var(--line-soft);
+  padding-top:7px;
+}
+.driver-name{
+  font-size:9px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  margin-bottom:5px;
+}
+.driver-meter{
+  display:flex;
+  gap:3px;
+  margin-bottom:4px;
+}
+.driver-meter .seg{
+  flex:1;
+  height:4px;
+  background:var(--line-soft);
+  border-radius:1px;
+}
+.driver-meter .seg.on{ background:var(--ink); }
+.driver-meter.warmth .seg.on{ background:var(--accent-rust); }
+.driver-meter.value .seg.on{ background:var(--accent-gold); }
+.driver-meter.chroma .seg.on{ background:var(--accent-sage); }
+.driver-readout{
+  font-family:'Cormorant Garamond', serif;
+  font-weight:600;
+  font-size:11.5px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="editor-note">
+  <strong>How this report gets built —</strong> this file is generated automatically from a Tally form submission (client name, subseason, Feature Analysis text, and all photos). Nothing below needs manual editing once the pipeline is set up — this note is for reference only.
+  <br><br>
+  <strong>Pages 7–10</strong> are a fixed reference section — the full 12-season chart (best/worst 10 colors and warmth/value/chroma readings for every subseason). Identical on every report.
+  <br><br>
+  <strong>Pages 3, 5, and 6 ("turtleneck" colors)</strong> use real photos generated in ChatGPT from the client's own portrait — one photo per color swatch, uploaded through the Tally form.
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 1 — COVER -->
+<!-- ============================================================ -->
+<div class="page-strip-label">Page 1 — Cover</div>
+<div class="page" id="page-1">
+
+  <div class="p1-title display">Color Atelier</div>
+
+  <div class="fillable p1-client display" id="f-client-name">[ Client Full Name ]</div>
+  <div class="fillable p1-season" id="f-season-result">[ Season Result — e.g. True Autumn ]</div>
+  <div class="fillable p1-date" id="f-report-date">[ Month Year — e.g. June 2026 ]</div>
+
+  <img class="p1-photo" id="img-cover" src="" alt="Client cover photo" style="display:none; width:100%; height:170mm; object-fit:cover; border-radius:2px;">
+  <div class="photo-slot fillable p1-photo" id="slot-cover">
+    <span>CLIENT PHOTO<br>Front-facing, neutral expression, even daylight,<br>hair pulled back, no makeup if possible<br>Portrait orientation, fills frame</span>
+  </div>
+
+  <div class="signature center">by Luzma</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 2 — FEATURE ANALYSIS -->
+<!-- ============================================================ -->
+<div class="page-strip-label">Page 2 — Natural Feature Analysis</div>
+<div class="page" id="page-2">
+  <div class="page-number">2</div>
+
+  <div class="p2-header">
+    <div class="p2-title display">Analysis: Your Natural Features</div>
+  </div>
+
+  <div class="feature-table-head">
+    <div>Feature</div><div></div><div></div>
+    <div>Drivers</div>
+  </div>
+
+  <!-- HAIR -->
+  <div class="feature-row">
+    <div class="fname">Hair</div>
+    <div class="photo-slot fillable feature-photo" id="slot-hair"><span style="font-size:8px;">hair close-up</span></div>
+    <div class="feature-desc fillable" id="f-desc-hair">[ Hair description — tone, depth, undertone reflections ]</div>
+    <div class="driver-badges">
+      <div class="driver-badge-row"><span class="driver-badge-label">Temperature</span><span class="driver-badge-value medium fillable" id="f-driver-hair-temp">[ H/M/L ]</span></div>
+      <div class="driver-badge-row"><span class="driver-badge-label">Value</span><span class="driver-badge-value medium fillable" id="f-driver-hair-value">[ H/M/L ]</span></div>
+      <div class="driver-badge-row"><span class="driver-badge-label">Chroma</span><span class="driver-badge-value medium fillable" id="f-driver-hair-chroma">[ H/M/L ]</span></div>
+    </div>
+  </div>
+
+  <!-- BROWS -->
+  <div class="feature-row">
+    <div class="fname">Brows</div>
+    <div class="photo-slot fillable feature-photo" id="slot-brows"><span style="font-size:8px;">brows close-up</span></div>
+    <div class="feature-desc fillable" id="f-desc-brows">[ Brow description — tone, density ]</div>
+    <div class="driver-badges">
+      <div class="driver-badge-row"><span class="driver-badge-label">Temperature</span><span class="driver-badge-value medium fillable" id="f-driver-brows-temp">[ H/M/L ]</span></div>
+      <div class="driver-badge-row"><span class="driver-badge-label">Value</span><span class="driver-badge-value medium fillable" id="f-driver-brows-value">[ H/M/L ]</span></div>
+      <div class="driver-badge-row"><span class="driver-badge-label">Chroma</span><span class="driver-badge-value medium fillable" id="f-driver-brows-chroma">[ H/M/L ]</span></div>
+    </div>
+  </div>
+
+  <!-- EYES -->
+  <div class="feature-row">
+    <div class="fname">Eyes</div>
+    <div class="photo-slot fillable feature-photo" id="slot-eyes"><span style="font-size:8px;">eyes close-up</span></div>
+    <div class="feature-desc fillable" id="f-desc-eyes">[ Eye description — color, flecks ]</div>
+    <div class="driver-badges">
+      <div class="driver-badge-row"><span class="driver-badge-label">Temperature</span><span class="driver-badge-value medium fillable" id="f-driver-eyes-temp">[ H/M/L ]</span></div>
+      <div class="driver-badge-row"><span class="driver-badge-label">Value</span><span class="driver-badge-value medium fillable" id="f-driver-eyes-value">[ H/M/L ]</span></div>
+      <div class="driver-badge-row"><span class="driver-badge-label">Chroma</span><span class="driver-badge-value medium fillable" id="f-driver-eyes-chroma">[ H/M/L ]</span></div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="feature-row">
+    <div class="fname">Features</div>
+    <div class="photo-slot fillable feature-photo" id="slot-features"><span style="font-size:8px;">features close-up</span></div>
+    <div class="feature-desc fillable" id="f-desc-features">[ Bone structure / contrast description ]</div>
+    <div class="driver-badges">
+      <div class="driver-badge-row"><span class="driver-badge-label">Temperature</span><span class="driver-badge-value medium fillable" id="f-driver-features-temp">[ H/M/L ]</span></div>
+      <div class="driver-badge-row"><span class="driver-badge-label">Value</span><span class="driver-badge-value medium fillable" id="f-driver-features-value">[ H/M/L ]</span></div>
+      <div class="driver-badge-row"><span class="driver-badge-label">Chroma</span><span class="driver-badge-value medium fillable" id="f-driver-features-chroma">[ H/M/L ]</span></div>
+    </div>
+  </div>
+
+  <!-- SKIN -->
+  <div class="feature-row">
+    <div class="fname">Skin</div>
+    <div class="photo-slot fillable feature-photo" id="slot-skin"><span style="font-size:8px;">skin close-up</span></div>
+    <div class="feature-desc fillable" id="f-desc-skin">[ Skin depth and undertone description ]</div>
+    <div class="driver-badges">
+      <div class="driver-badge-row"><span class="driver-badge-label">Temperature</span><span class="driver-badge-value medium fillable" id="f-driver-skin-temp">[ H/M/L ]</span></div>
+      <div class="driver-badge-row"><span class="driver-badge-label">Value</span><span class="driver-badge-value medium fillable" id="f-driver-skin-value">[ H/M/L ]</span></div>
+      <div class="driver-badge-row"><span class="driver-badge-label">Chroma</span><span class="driver-badge-value medium fillable" id="f-driver-skin-chroma">[ H/M/L ]</span></div>
+    </div>
+  </div>
+
+  <div class="overview-box">
+    <b>Overview:</b> <span id="f-overview-summary">[ One-sentence summary of the client's overall coloring ]</span>
+    <br><br>
+    <b>Season:</b> <span id="f-overview-season">[ Season ]</span> &nbsp;·&nbsp; <b>Subseason:</b> <span id="f-overview-subseason">[ Subseason ]</span>
+  </div>
+
+  <div class="signature right">by Luzma</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 3 — GOLD VS SILVER -->
+<!-- ============================================================ -->
+<div class="page-strip-label">Page 3 — Gold vs Silver Test</div>
+<div class="page" id="page-3">
+  <div class="page-number">3</div>
+
+  <div class="p3-title display">Gold vs Silver Test</div>
+
+  <div class="metal-row">
+    <div class="metal-card">
+      <div class="metal-label">Gold</div>
+      <img class="metal-photo" id="img-gold" src="" alt="Client in gold turtleneck" style="display:none; width:100%; height:140mm; object-fit:cover; border-radius:2px; margin-bottom:14px;">
+      <div class="photo-slot fillable metal-photo" id="slot-gold" style="height:140mm; margin-bottom:14px;"><span>CLIENT PHOTO — gold turtleneck</span></div>
+      <div class="metal-copy" id="f-gold-copy">[ Description of how gold reads on this client's coloring ]</div>
+    </div>
+    <div class="metal-card">
+      <div class="metal-label">Silver</div>
+      <img class="metal-photo" id="img-silver" src="" alt="Client in silver turtleneck" style="display:none; width:100%; height:140mm; object-fit:cover; border-radius:2px; margin-bottom:14px;">
+      <div class="photo-slot fillable metal-photo" id="slot-silver" style="height:140mm; margin-bottom:14px;"><span>CLIENT PHOTO — silver turtleneck</span></div>
+      <div class="metal-copy" id="f-silver-copy">[ Description of how silver reads on this client's coloring ]</div>
+    </div>
+  </div>
+
+  <div class="result-box">
+    <div class="rt" id="f-metal-result">[ Result: Gold / Silver is your harmony ]</div>
+    <div class="rd" id="f-metal-note">[ One line — which metals and metallic tones to wear ]</div>
+  </div>
+
+  <div class="signature center">by Luzma</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 4 — SEASON + PALETTE -->
+<!-- ============================================================ -->
+<div class="page-strip-label">Page 4 — Season Palette</div>
+<div class="page" id="page-4">
+  <div class="page-number">4</div>
+
+  <div class="p4-title display" id="f-subseason-title">Your Subseason: [ Subseason Name ]</div>
+  <div class="p4-traits" id="f-subseason-traits">[ traits ]</div>
+
+  <div class="p4-grid">
+    <div>
+      <div class="p4-copy" id="f-subseason-copy">[ subseason description ]</div>
+
+      <div class="sister-title">Sister Subseasons <span style="text-transform:none; font-style:italic;">— same family, adjacent intensity</span></div>
+      <div class="sister-row" id="block-sisters">
+        <!-- SERVER-RENDERED: two sister blocks (label + 6-swatch grid each) from data.sisters -->
+      </div>
+    </div>
+
+    <div>
+      <div class="palette-title" id="f-palette-title">[ Subseason Name ] Palette — Your Colors</div>
+      <div class="swatch-grid" id="block-own-palette">
+        <!-- SERVER-RENDERED: 20 swatches (10 best + 10 worst) from data.best_named + data.worst_named -->
+      </div>
+    </div>
+  </div>
+
+  <div class="signature left">by Luzma</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 5 — BEST COLORS TRY-ON -->
+<!-- ============================================================ -->
+<div class="page-strip-label">Page 5 — Best Colors</div>
+<div class="page" id="page-5">
+  <div class="page-number">5</div>
+
+  <div class="p56-title">
+    <div class="display">Your Best Colors</div>
+  </div>
+  <div class="p56-sub">Wear these near your face</div>
+
+  <div class="tryon-grid" id="block-best-row1">
+    <!-- SERVER-RENDERED: 5 tryon-cards (img upload slot + color name) from data.best_named[0:5] -->
+  </div>
+
+  <div class="tryon-row-gap"></div>
+
+  <div class="tryon-grid" id="block-best-row2">
+    <!-- SERVER-RENDERED: 5 tryon-cards from data.best_named[5:10] -->
+  </div>
+
+  <div class="p56-footer" id="f-best-footer">These colors bring out your natural warmth, even your skin tone, and enhance your features.</div>
+
+  <div class="signature right">by Luzma</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 6 — NOT COLORS TRY-ON -->
+<!-- ============================================================ -->
+<div class="page-strip-label">Page 6 — Colors to Avoid</div>
+<div class="page" id="page-6">
+  <div class="page-number">6</div>
+
+  <div class="p56-title">
+    <div class="display">Your Not-Colors</div>
+  </div>
+  <div class="p56-sub">Colors that are less harmonious</div>
+
+  <div class="tryon-grid" id="block-worst-row1">
+    <!-- SERVER-RENDERED: 5 tryon-cards from data.worst_named[0:5] -->
+  </div>
+
+  <div class="tryon-row-gap"></div>
+
+  <div class="tryon-grid" id="block-worst-row2">
+    <!-- SERVER-RENDERED: 5 tryon-cards from data.worst_named[5:10] -->
+  </div>
+
+  <div class="p56-footer" id="f-worst-footer">These colors can wash you out, create unwanted contrast, or compete with your natural coloring.</div>
+
+  <div class="signature right">by Luzma</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 7 — REFERENCE: SPRING -->
+<!-- ============================================================ -->
+<div class="page-strip-label">Page 7 — Reference: The Spring Seasons</div>
+<div class="page" id="page-7">
+  <div class="page-number">7</div>
+
+  <div class="ref-intro">
+    <div class="eyebrow">Reference Plate</div>
+    <div class="display">The Spring Seasons</div>
+    <div class="ref-group-label">Warm · Light · Clear</div>
+  </div>
+
+
+  <div class="season-block">
+    <div class="season-block-head">
+      <div class="season-block-name">Light Spring</div>
+      <div class="season-block-tag">Warm · Light · Soft</div>
+    </div>
+
+    <div class="colorlist-label best">Best 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#FFE3C2;"></div><div class="swatch10" style="background:#FFD6A8;"></div><div class="swatch10" style="background:#FFB6A3;"></div><div class="swatch10" style="background:#F9C6D0;"></div><div class="swatch10" style="background:#A8DBC9;"></div><div class="swatch10" style="background:#9FD8D8;"></div><div class="swatch10" style="background:#FFE08A;"></div><div class="swatch10" style="background:#D8C3DD;"></div><div class="swatch10" style="background:#B4E1C5;"></div><div class="swatch10" style="background:#FAD9C1;"></div></div>
+
+    <div class="colorlist-label worst">Worst 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#0E1A4A;"></div><div class="swatch10" style="background:#1A1A2E;"></div><div class="swatch10" style="background:#5C0E2E;"></div><div class="swatch10" style="background:#0E3A3A;"></div><div class="swatch10" style="background:#3E0E3E;"></div><div class="swatch10" style="background:#1C1610;"></div><div class="swatch10" style="background:#4A0E0E;"></div><div class="swatch10" style="background:#0E2A1E;"></div><div class="swatch10" style="background:#2E0E1A;"></div><div class="swatch10" style="background:#101010;"></div></div>
+
+    <div class="driver-row">
+      <div class="driver">
+        <div class="driver-name">Warmth</div>
+        <div class="driver-meter warmth"><div class="seg on"></div><div class="seg on"></div><div class="seg"></div></div>
+        <div class="driver-readout">Medium</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Value</div>
+        <div class="driver-meter value"><div class="seg on"></div><div class="seg on"></div><div class="seg on"></div></div>
+        <div class="driver-readout">High</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Chroma</div>
+        <div class="driver-meter chroma"><div class="seg on"></div><div class="seg"></div><div class="seg"></div></div>
+        <div class="driver-readout">Low</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="season-block">
+    <div class="season-block-head">
+      <div class="season-block-name">True Spring</div>
+      <div class="season-block-tag">Warm · Clear · Golden</div>
+    </div>
+
+    <div class="colorlist-label best">Best 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#FF8C42;"></div><div class="swatch10" style="background:#FFD23F;"></div><div class="swatch10" style="background:#5EBD7E;"></div><div class="swatch10" style="background:#E8552B;"></div><div class="swatch10" style="background:#37A6A2;"></div><div class="swatch10" style="background:#F25C78;"></div><div class="swatch10" style="background:#FFB627;"></div><div class="swatch10" style="background:#7BC95F;"></div><div class="swatch10" style="background:#FF7A5C;"></div><div class="swatch10" style="background:#2EA88A;"></div></div>
+
+    <div class="colorlist-label worst">Worst 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#5C7C99;"></div><div class="swatch10" style="background:#8E7C9E;"></div><div class="swatch10" style="background:#6E94B7;"></div><div class="swatch10" style="background:#B98A9A;"></div><div class="swatch10" style="background:#9C8FA0;"></div><div class="swatch10" style="background:#7E8B9E;"></div><div class="swatch10" style="background:#3E4A5E;"></div><div class="swatch10" style="background:#A6577A;"></div><div class="swatch10" style="background:#5B5D7A;"></div><div class="swatch10" style="background:#8A8C9E;"></div></div>
+
+    <div class="driver-row">
+      <div class="driver">
+        <div class="driver-name">Warmth</div>
+        <div class="driver-meter warmth"><div class="seg on"></div><div class="seg on"></div><div class="seg on"></div></div>
+        <div class="driver-readout">High</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Value</div>
+        <div class="driver-meter value"><div class="seg on"></div><div class="seg on"></div><div class="seg"></div></div>
+        <div class="driver-readout">Medium</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Chroma</div>
+        <div class="driver-meter chroma"><div class="seg on"></div><div class="seg on"></div><div class="seg on"></div></div>
+        <div class="driver-readout">High</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="season-block">
+    <div class="season-block-head">
+      <div class="season-block-name">Bright Spring</div>
+      <div class="season-block-tag">Warm · Bright · Vivid</div>
+    </div>
+
+    <div class="colorlist-label best">Best 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#FF6B4A;"></div><div class="swatch10" style="background:#FFC72C;"></div><div class="swatch10" style="background:#00A89D;"></div><div class="swatch10" style="background:#3DAE2B;"></div><div class="swatch10" style="background:#E8175D;"></div><div class="swatch10" style="background:#0084C7;"></div><div class="swatch10" style="background:#FF4040;"></div><div class="swatch10" style="background:#FFEB3B;"></div><div class="swatch10" style="background:#00BFA5;"></div><div class="swatch10" style="background:#FF1493;"></div></div>
+
+    <div class="colorlist-label worst">Worst 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#A98A6E;"></div><div class="swatch10" style="background:#8C8264;"></div><div class="swatch10" style="background:#9C8F9E;"></div><div class="swatch10" style="background:#6E7C82;"></div><div class="swatch10" style="background:#B49C9C;"></div><div class="swatch10" style="background:#7E8266;"></div><div class="swatch10" style="background:#A47C82;"></div><div class="swatch10" style="background:#8B8C9E;"></div><div class="swatch10" style="background:#9C7A5C;"></div><div class="swatch10" style="background:#6E6650;"></div></div>
+
+    <div class="driver-row">
+      <div class="driver">
+        <div class="driver-name">Warmth</div>
+        <div class="driver-meter warmth"><div class="seg on"></div><div class="seg on"></div><div class="seg"></div></div>
+        <div class="driver-readout">Medium</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Value</div>
+        <div class="driver-meter value"><div class="seg on"></div><div class="seg on"></div><div class="seg"></div></div>
+        <div class="driver-readout">Medium</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Chroma</div>
+        <div class="driver-meter chroma"><div class="seg on"></div><div class="seg on"></div><div class="seg on"></div></div>
+        <div class="driver-readout">High</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="signature right">by Luzma</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 8 — REFERENCE: SUMMER -->
+<!-- ============================================================ -->
+<div class="page-strip-label">Page 8 — Reference: The Summer Seasons</div>
+<div class="page" id="page-8">
+  <div class="page-number">8</div>
+
+  <div class="ref-intro">
+    <div class="eyebrow">Reference Plate</div>
+    <div class="display">The Summer Seasons</div>
+    <div class="ref-group-label">Cool · Soft · Muted</div>
+  </div>
+
+
+  <div class="season-block">
+    <div class="season-block-head">
+      <div class="season-block-name">Light Summer</div>
+      <div class="season-block-tag">Cool · Light · Airy</div>
+    </div>
+
+    <div class="colorlist-label best">Best 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#A9C6E8;"></div><div class="swatch10" style="background:#E3B6C3;"></div><div class="swatch10" style="background:#C9D6E3;"></div><div class="swatch10" style="background:#9FB8C8;"></div><div class="swatch10" style="background:#D8C3DD;"></div><div class="swatch10" style="background:#B8D8D0;"></div><div class="swatch10" style="background:#CFE0EE;"></div><div class="swatch10" style="background:#E8C9D6;"></div><div class="swatch10" style="background:#A8C8C0;"></div><div class="swatch10" style="background:#C6CEDD;"></div></div>
+
+    <div class="colorlist-label worst">Worst 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#A6491E;"></div><div class="swatch10" style="background:#7A2E1E;"></div><div class="swatch10" style="background:#C98A2C;"></div><div class="swatch10" style="background:#5C3A1E;"></div><div class="swatch10" style="background:#8C3B2B;"></div><div class="swatch10" style="background:#3E4A28;"></div><div class="swatch10" style="background:#6E1F2E;"></div><div class="swatch10" style="background:#B5722E;"></div><div class="swatch10" style="background:#4A3220;"></div><div class="swatch10" style="background:#8C5A1E;"></div></div>
+
+    <div class="driver-row">
+      <div class="driver">
+        <div class="driver-name">Warmth</div>
+        <div class="driver-meter warmth"><div class="seg on"></div><div class="seg"></div><div class="seg"></div></div>
+        <div class="driver-readout">Low</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Value</div>
+        <div class="driver-meter value"><div class="seg on"></div><div class="seg on"></div><div class="seg on"></div></div>
+        <div class="driver-readout">High</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Chroma</div>
+        <div class="driver-meter chroma"><div class="seg on"></div><div class="seg"></div><div class="seg"></div></div>
+        <div class="driver-readout">Low</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="season-block">
+    <div class="season-block-head">
+      <div class="season-block-name">True Summer</div>
+      <div class="season-block-tag">Cool · Muted · Powdered</div>
+    </div>
+
+    <div class="colorlist-label best">Best 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#6E94B7;"></div><div class="swatch10" style="background:#A6577A;"></div><div class="swatch10" style="background:#7E9A8E;"></div><div class="swatch10" style="background:#8E7C9E;"></div><div class="swatch10" style="background:#5B7D99;"></div><div class="swatch10" style="background:#B98A9A;"></div><div class="swatch10" style="background:#6E7C99;"></div><div class="swatch10" style="background:#9C7C94;"></div><div class="swatch10" style="background:#7E94A0;"></div><div class="swatch10" style="background:#5E7A8C;"></div></div>
+
+    <div class="colorlist-label worst">Worst 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#FF8C42;"></div><div class="swatch10" style="background:#FFD23F;"></div><div class="swatch10" style="background:#E8552B;"></div><div class="swatch10" style="background:#FFB627;"></div><div class="swatch10" style="background:#FF6B4A;"></div><div class="swatch10" style="background:#FFC72C;"></div><div class="swatch10" style="background:#E8175D;"></div><div class="swatch10" style="background:#FF7A5C;"></div><div class="swatch10" style="background:#D88A4E;"></div><div class="swatch10" style="background:#C98A2C;"></div></div>
+
+    <div class="driver-row">
+      <div class="driver">
+        <div class="driver-name">Warmth</div>
+        <div class="driver-meter warmth"><div class="seg on"></div><div class="seg"></div><div class="seg"></div></div>
+        <div class="driver-readout">Low</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Value</div>
+        <div class="driver-meter value"><div class="seg on"></div><div class="seg on"></div><div class="seg"></div></div>
+        <div class="driver-readout">Medium</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Chroma</div>
+        <div class="driver-meter chroma"><div class="seg on"></div><div class="seg"></div><div class="seg"></div></div>
+        <div class="driver-readout">Low</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="season-block">
+    <div class="season-block-head">
+      <div class="season-block-name">Soft Summer</div>
+      <div class="season-block-tag">Cool · Muted · Dusty</div>
+    </div>
+
+    <div class="colorlist-label best">Best 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#8B8C9E;"></div><div class="swatch10" style="background:#A47C82;"></div><div class="swatch10" style="background:#7E8B82;"></div><div class="swatch10" style="background:#9C8F9E;"></div><div class="swatch10" style="background:#6E7C82;"></div><div class="swatch10" style="background:#B49C9C;"></div><div class="swatch10" style="background:#8C8264;"></div><div class="swatch10" style="background:#9C8FA0;"></div><div class="swatch10" style="background:#7C8E94;"></div><div class="swatch10" style="background:#A8949C;"></div></div>
+
+    <div class="colorlist-label worst">Worst 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#E8003C;"></div><div class="swatch10" style="background:#0057E8;"></div><div class="swatch10" style="background:#FFE600;"></div><div class="swatch10" style="background:#E800B0;"></div><div class="swatch10" style="background:#00C2A8;"></div><div class="swatch10" style="background:#1A1A1A;"></div><div class="swatch10" style="background:#FFFFFF;"></div><div class="swatch10" style="background:#FF6B4A;"></div><div class="swatch10" style="background:#0084C7;"></div><div class="swatch10" style="background:#3DAE2B;"></div></div>
+
+    <div class="driver-row">
+      <div class="driver">
+        <div class="driver-name">Warmth</div>
+        <div class="driver-meter warmth"><div class="seg on"></div><div class="seg"></div><div class="seg"></div></div>
+        <div class="driver-readout">Low</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Value</div>
+        <div class="driver-meter value"><div class="seg on"></div><div class="seg on"></div><div class="seg"></div></div>
+        <div class="driver-readout">Medium</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Chroma</div>
+        <div class="driver-meter chroma"><div class="seg on"></div><div class="seg"></div><div class="seg"></div></div>
+        <div class="driver-readout">Low</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="signature right">by Luzma</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 9 — REFERENCE: AUTUMN -->
+<!-- ============================================================ -->
+<div class="page-strip-label">Page 9 — Reference: The Autumn Seasons</div>
+<div class="page" id="page-9">
+  <div class="page-number">9</div>
+
+  <div class="ref-intro">
+    <div class="eyebrow">Reference Plate</div>
+    <div class="display">The Autumn Seasons</div>
+    <div class="ref-group-label">Warm · Deep · Muted</div>
+  </div>
+
+
+  <div class="season-block">
+    <div class="season-block-head">
+      <div class="season-block-name">Soft Autumn</div>
+      <div class="season-block-tag">Warm · Muted · Earthen</div>
+    </div>
+
+    <div class="colorlist-label best">Best 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#A98A6E;"></div><div class="swatch10" style="background:#8C8264;"></div><div class="swatch10" style="background:#B5916A;"></div><div class="swatch10" style="background:#7E8266;"></div><div class="swatch10" style="background:#9C7A5C;"></div><div class="swatch10" style="background:#6E6650;"></div><div class="swatch10" style="background:#AE9C7C;"></div><div class="swatch10" style="background:#8A7A5C;"></div><div class="swatch10" style="background:#9C8E6E;"></div><div class="swatch10" style="background:#7C7458;"></div></div>
+
+    <div class="colorlist-label worst">Worst 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#0E1A4A;"></div><div class="swatch10" style="background:#C2103D;"></div><div class="swatch10" style="background:#0E5A6E;"></div><div class="swatch10" style="background:#5A0E5E;"></div><div class="swatch10" style="background:#E800B0;"></div><div class="swatch10" style="background:#1A1A1A;"></div><div class="swatch10" style="background:#FFFFFF;"></div><div class="swatch10" style="background:#0057E8;"></div><div class="swatch10" style="background:#FFE600;"></div><div class="swatch10" style="background:#3E0E3E;"></div></div>
+
+    <div class="driver-row">
+      <div class="driver">
+        <div class="driver-name">Warmth</div>
+        <div class="driver-meter warmth"><div class="seg on"></div><div class="seg on"></div><div class="seg"></div></div>
+        <div class="driver-readout">Medium</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Value</div>
+        <div class="driver-meter value"><div class="seg on"></div><div class="seg on"></div><div class="seg"></div></div>
+        <div class="driver-readout">Medium</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Chroma</div>
+        <div class="driver-meter chroma"><div class="seg on"></div><div class="seg"></div><div class="seg"></div></div>
+        <div class="driver-readout">Low</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="season-block">
+    <div class="season-block-head">
+      <div class="season-block-name">True Autumn</div>
+      <div class="season-block-tag">Warm · Rich · Earthen</div>
+    </div>
+
+    <div class="colorlist-label best">Best 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#A6491E;"></div><div class="swatch10" style="background:#C98A2C;"></div><div class="swatch10" style="background:#6E7A3D;"></div><div class="swatch10" style="background:#8C3B2B;"></div><div class="swatch10" style="background:#4F5C3A;"></div><div class="swatch10" style="background:#B5722E;"></div><div class="swatch10" style="background:#7A4A1E;"></div><div class="swatch10" style="background:#9C6A2E;"></div><div class="swatch10" style="background:#5C6E3A;"></div><div class="swatch10" style="background:#8A5A2A;"></div></div>
+
+    <div class="colorlist-label worst">Worst 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#A9C6E8;"></div><div class="swatch10" style="background:#E3B6C3;"></div><div class="swatch10" style="background:#5A0E5E;"></div><div class="swatch10" style="background:#0E1A4A;"></div><div class="swatch10" style="background:#C9D6E3;"></div><div class="swatch10" style="background:#9FB8C8;"></div><div class="swatch10" style="background:#D8C3DD;"></div><div class="swatch10" style="background:#E800B0;"></div><div class="swatch10" style="background:#5B7D99;"></div><div class="swatch10" style="background:#6E94B7;"></div></div>
+
+    <div class="driver-row">
+      <div class="driver">
+        <div class="driver-name">Warmth</div>
+        <div class="driver-meter warmth"><div class="seg on"></div><div class="seg on"></div><div class="seg on"></div></div>
+        <div class="driver-readout">High</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Value</div>
+        <div class="driver-meter value"><div class="seg on"></div><div class="seg on"></div><div class="seg"></div></div>
+        <div class="driver-readout">Medium</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Chroma</div>
+        <div class="driver-meter chroma"><div class="seg on"></div><div class="seg on"></div><div class="seg"></div></div>
+        <div class="driver-readout">Medium</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="season-block">
+    <div class="season-block-head">
+      <div class="season-block-name">Deep Autumn</div>
+      <div class="season-block-tag">Warm · Deep · Smoldering</div>
+    </div>
+
+    <div class="colorlist-label best">Best 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#7A2E1E;"></div><div class="swatch10" style="background:#5C3A1E;"></div><div class="swatch10" style="background:#8C5A1E;"></div><div class="swatch10" style="background:#3E4A28;"></div><div class="swatch10" style="background:#6E1F2E;"></div><div class="swatch10" style="background:#4A3220;"></div><div class="swatch10" style="background:#2E2014;"></div><div class="swatch10" style="background:#5C2E1E;"></div><div class="swatch10" style="background:#3A2A14;"></div><div class="swatch10" style="background:#6E4A1E;"></div></div>
+
+    <div class="colorlist-label worst">Worst 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#FFE3C2;"></div><div class="swatch10" style="background:#A9C6E8;"></div><div class="swatch10" style="background:#FFB6A3;"></div><div class="swatch10" style="background:#E3B6C3;"></div><div class="swatch10" style="background:#FFD6A5;"></div><div class="swatch10" style="background:#C9D6E3;"></div><div class="swatch10" style="background:#FFFFFF;"></div><div class="swatch10" style="background:#D8C3DD;"></div><div class="swatch10" style="background:#9FD8D8;"></div><div class="swatch10" style="background:#FAD9C1;"></div></div>
+
+    <div class="driver-row">
+      <div class="driver">
+        <div class="driver-name">Warmth</div>
+        <div class="driver-meter warmth"><div class="seg on"></div><div class="seg on"></div><div class="seg"></div></div>
+        <div class="driver-readout">Medium</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Value</div>
+        <div class="driver-meter value"><div class="seg on"></div><div class="seg"></div><div class="seg"></div></div>
+        <div class="driver-readout">Low</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Chroma</div>
+        <div class="driver-meter chroma"><div class="seg on"></div><div class="seg on"></div><div class="seg"></div></div>
+        <div class="driver-readout">Medium</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="signature right">by Luzma</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 10 — REFERENCE: WINTER -->
+<!-- ============================================================ -->
+<div class="page-strip-label">Page 10 — Reference: The Winter Seasons</div>
+<div class="page" id="page-10">
+  <div class="page-number">10</div>
+
+  <div class="ref-intro">
+    <div class="eyebrow">Reference Plate</div>
+    <div class="display">The Winter Seasons</div>
+    <div class="ref-group-label">Cool · Bright · Saturated</div>
+  </div>
+
+
+  <div class="season-block">
+    <div class="season-block-head">
+      <div class="season-block-name">Deep Winter</div>
+      <div class="season-block-tag">Cool · Deep · Saturated</div>
+    </div>
+
+    <div class="colorlist-label best">Best 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#1A1A2E;"></div><div class="swatch10" style="background:#6E0E2E;"></div><div class="swatch10" style="background:#0E3A5E;"></div><div class="swatch10" style="background:#2E0E3E;"></div><div class="swatch10" style="background:#0E4A3E;"></div><div class="swatch10" style="background:#5E0E0E;"></div><div class="swatch10" style="background:#1A0E2E;"></div><div class="swatch10" style="background:#0E1A2E;"></div><div class="swatch10" style="background:#3E0E2E;"></div><div class="swatch10" style="background:#0E0E1A;"></div></div>
+
+    <div class="colorlist-label worst">Worst 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#FFE3C2;"></div><div class="swatch10" style="background:#FFD6A8;"></div><div class="swatch10" style="background:#FFB6A3;"></div><div class="swatch10" style="background:#F9C6D0;"></div><div class="swatch10" style="background:#FFE08A;"></div><div class="swatch10" style="background:#FAD9C1;"></div><div class="swatch10" style="background:#A98A6E;"></div><div class="swatch10" style="background:#8C8264;"></div><div class="swatch10" style="background:#B5916A;"></div><div class="swatch10" style="background:#9C7A5C;"></div></div>
+
+    <div class="driver-row">
+      <div class="driver">
+        <div class="driver-name">Warmth</div>
+        <div class="driver-meter warmth"><div class="seg on"></div><div class="seg"></div><div class="seg"></div></div>
+        <div class="driver-readout">Low</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Value</div>
+        <div class="driver-meter value"><div class="seg on"></div><div class="seg"></div><div class="seg"></div></div>
+        <div class="driver-readout">Low</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Chroma</div>
+        <div class="driver-meter chroma"><div class="seg on"></div><div class="seg on"></div><div class="seg"></div></div>
+        <div class="driver-readout">Medium</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="season-block">
+    <div class="season-block-head">
+      <div class="season-block-name">True Winter</div>
+      <div class="season-block-tag">Cool · Icy · Contrasted</div>
+    </div>
+
+    <div class="colorlist-label best">Best 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#0E1A4A;"></div><div class="swatch10" style="background:#C2103D;"></div><div class="swatch10" style="background:#0E5A6E;"></div><div class="swatch10" style="background:#5A0E5E;"></div><div class="swatch10" style="background:#FFFFFF;"></div><div class="swatch10" style="background:#0E0E0E;"></div><div class="swatch10" style="background:#1A1A6E;"></div><div class="swatch10" style="background:#8E0E3E;"></div><div class="swatch10" style="background:#0E6E6E;"></div><div class="swatch10" style="background:#3E0E5E;"></div></div>
+
+    <div class="colorlist-label worst">Worst 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#FFB627;"></div><div class="swatch10" style="background:#D88A4E;"></div><div class="swatch10" style="background:#A6491E;"></div><div class="swatch10" style="background:#C98A2C;"></div><div class="swatch10" style="background:#FFE3C2;"></div><div class="swatch10" style="background:#B5722E;"></div><div class="swatch10" style="background:#FF8C42;"></div><div class="swatch10" style="background:#8C5A1E;"></div><div class="swatch10" style="background:#FFD23F;"></div><div class="swatch10" style="background:#9C6A2E;"></div></div>
+
+    <div class="driver-row">
+      <div class="driver">
+        <div class="driver-name">Warmth</div>
+        <div class="driver-meter warmth"><div class="seg on"></div><div class="seg"></div><div class="seg"></div></div>
+        <div class="driver-readout">Low</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Value</div>
+        <div class="driver-meter value"><div class="seg on"></div><div class="seg on"></div><div class="seg"></div></div>
+        <div class="driver-readout">Medium</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Chroma</div>
+        <div class="driver-meter chroma"><div class="seg on"></div><div class="seg on"></div><div class="seg on"></div></div>
+        <div class="driver-readout">High</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="season-block">
+    <div class="season-block-head">
+      <div class="season-block-name">Bright Winter</div>
+      <div class="season-block-tag">Cool · Electric · Clear</div>
+    </div>
+
+    <div class="colorlist-label best">Best 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#E8003C;"></div><div class="swatch10" style="background:#0057E8;"></div><div class="swatch10" style="background:#00C2A8;"></div><div class="swatch10" style="background:#E800B0;"></div><div class="swatch10" style="background:#FFE600;"></div><div class="swatch10" style="background:#1A1A1A;"></div><div class="swatch10" style="background:#FF1493;"></div><div class="swatch10" style="background:#00BFA5;"></div><div class="swatch10" style="background:#FFFFFF;"></div><div class="swatch10" style="background:#5A0EE8;"></div></div>
+
+    <div class="colorlist-label worst">Worst 10 Colors</div>
+    <div class="swatch10-row"><div class="swatch10" style="background:#A98A6E;"></div><div class="swatch10" style="background:#8C8264;"></div><div class="swatch10" style="background:#B5916A;"></div><div class="swatch10" style="background:#9C7A5C;"></div><div class="swatch10" style="background:#6E6650;"></div><div class="swatch10" style="background:#AE9C7C;"></div><div class="swatch10" style="background:#7E8266;"></div><div class="swatch10" style="background:#8A7A5C;"></div><div class="swatch10" style="background:#9C8E6E;"></div><div class="swatch10" style="background:#7C7458;"></div></div>
+
+    <div class="driver-row">
+      <div class="driver">
+        <div class="driver-name">Warmth</div>
+        <div class="driver-meter warmth"><div class="seg on"></div><div class="seg"></div><div class="seg"></div></div>
+        <div class="driver-readout">Low</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Value</div>
+        <div class="driver-meter value"><div class="seg on"></div><div class="seg on"></div><div class="seg"></div></div>
+        <div class="driver-readout">Medium</div>
+      </div>
+      <div class="driver">
+        <div class="driver-name">Chroma</div>
+        <div class="driver-meter chroma"><div class="seg on"></div><div class="seg on"></div><div class="seg on"></div></div>
+        <div class="driver-readout">High</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="signature right">by Luzma</div>
+</div>
+
+</body>
+</html>
