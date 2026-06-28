@@ -195,13 +195,8 @@ function buildSistersBlock(sisterNames) {
     .join("\n");
 }
 
-function buildOwnPaletteBlock(bestNamed, worstNamed) {
-  const all = [...bestNamed, ...worstNamed];
-  return swatchDivs(all);
-}
-
 // Renders the same Warmth/Value/Chroma meter+readout markup used on the
-// fixed reference pages (7–10), so the client's own page 4 visually matches
+// fixed reference pages (6–9), so the client's own page 4 visually matches
 // the reference plates exactly. segCount: High=3 lit segments, Medium=2, Low=1.
 function buildDriverRow(drivers) {
   const segCounts = { High: 3, Medium: 2, Low: 1 };
@@ -269,17 +264,15 @@ function buildReport(formData) {
   // ---- Page 4: Season Palette ----
   html = setTextById(html, "f-subseason-title", `Your Subseason: ${subseasonName}`);
   html = setTextById(html, "f-subseason-traits", data.tag);
+  html = setPhoto(html, "img-best-collage", "slot-best-collage", formData.bestCollagePhoto);
   html = setTextById(html, "f-subseason-copy", formData.subseasonCopy || `${subseasonName} sits within the ${data.family} family — ${data.tag.toLowerCase()}.`);
-  html = setTextById(html, "f-palette-title", `${subseasonName} Palette — Your Colors`);
   html = replaceBlockById(html, "block-sisters", buildSistersBlock(data.sisters));
-  html = replaceBlockById(html, "block-own-palette", buildOwnPaletteBlock(data.best_named, data.worst_named));
   // Same Warmth/Value/Chroma readout shown on this subseason's entry on the
-  // fixed reference pages (7–10) — kept identical so the client's own page
+  // fixed reference pages (6–9) — kept identical so the client's own page
   // is consistent with the reference plates rather than contradicting them.
   html = replaceBlockById(html, "block-own-drivers", buildDriverRow(data.drivers));
 
-  // ---- Pages 5 & 6: Color collages ----
-  html = setPhoto(html, "img-best-collage", "slot-best-collage", formData.bestCollagePhoto);
+  // ---- Page 5: Not-Your-Colors collage ----
   html = setPhoto(html, "img-worst-collage", "slot-worst-collage", formData.worstCollagePhoto);
 
   return html;
