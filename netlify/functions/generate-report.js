@@ -310,7 +310,10 @@ exports.handler = async function (event) {
 
   return {
     statusCode: 200,
-    headers: { "Content-Type": "text/html; charset=utf-8" },
-    body: reportHtml,
+    headers: { "Content-Type": "application/json; charset=utf-8" },
+    body: JSON.stringify({
+      html: reportHtml,
+      clientName: formData.clientName || "",
+    }),
   };
 };
